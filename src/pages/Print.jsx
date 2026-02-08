@@ -1,0 +1,93 @@
+import { useEffect, useMemo, useState } from "react";
+import { Link, useLocation, useSearchParams } from "react-router-dom";
+import LabelPreview from "../components/LabelPreview.jsx";
+import { getLabel } from "../db.js";
+import { getUnitPrice } from "../utils/label.js";
+
+export default function PrintView() {
+  const location = useLocation();
+  const [searchParams] = useSearchParams();
+  const [label, setLabel] = useState(location.state?.label || null);
+
+  const quantity = useMemo(() => {
+    const fromQuery = Number(searchParams.get("quantity"));
+    if (Number.isFinite(fromQuery) && fromQuery > 0) return fromQuery;
+    if (location.state?.quantity) return location.state.quantity;
+    return 1;
+  }, [location.state, searchParams]);
+
+  useEffect(() => {
+    const id = searchParams.get("id");
+    if (!label && id) {
+      getLabel(Number(id)).then((data) => {
+        if (!data) return;
+        const computedUnitPrice =
+          data.unitPrice ??
+          getUnitPrice(data.price, data.weightValue, data.weightUnit);
+        setLabel({ ...data, unitPrice: computedUnitPrice });
+      });
+    }
+  }, [label, searchParams]);
+
+  useEffect(() => {
+    if (!label) return;
+    const timer = setTimeout(() => {
+      window.print();
+    }, 400);
+    return () => clearTimeout(timer);
+  }, [label, quantity]);
+
+  const pages = Array.from({ length: quantity }, (_, index) => index);
+
+  if (!label) {
+    return (
+      <div className="space-y-4">
+        <div className="rounded-xl border border-slate-200 bg-white p-4 text-sm text-slate-500">
+          No label data available.
+        </div>
+        <Link to="/new" className="text-sm text-slate-600 underline">
+          Back to New Label
+        </Link>
+      </div>
+    );
+  }
+
+  return (
+    <div className="space-y-4">
+      <div className="no-print flex items-center justify-between">
+        <div>
+          <div className="text-lg font-semibold">Print Preview</div>
+          <div className="text-xs text-slate-500">
+            {quantity} label{quantity > 1 ? "s" : ""} • 80mm x 40mm
+          </div>
+        </div>
+        <div className="flex gap-2">
+          <button
+            type="button"
+            onClick={() => window.print()}
+            className="rounded-md bg-slate-900 px-4 py-2 text-sm font-medium text-white"
+          >
+            Print now
+          </button>
+          <Link
+            to="/new"
+            className="rounded-md border border-slate-300 px-4 py-2 text-sm font-medium text-slate-600"
+          >
+            Back
+          </Link>
+        </div>
+      </div>
+
+      <div className="grid gap-4">
+        {pages.map((page) => (
+          <div key={page} className="flex justify-center">
+            <LabelPreview
+              label={label}
+              className="label-print border border-slate-200 bg-white shadow-sm"
+            />
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
