@@ -333,27 +333,29 @@ export default function NewLabel() {
               ) : null}
             </div>
 
-            <label className="text-sm font-medium text-slate-700 md:mt-1">
-              Best before
-              <input
-                type="date"
-                value={form.bestBefore}
-                onChange={handleChange("bestBefore")}
-                className="mt-1 w-full rounded-md border border-slate-300 px-3 py-2 text-sm"
-              />
-            </label>
+            <div className="grid gap-4 md:col-span-2 md:grid-cols-2">
+              <label className="text-sm font-medium text-slate-700">
+                Best before
+                <input
+                  type="date"
+                  value={form.bestBefore}
+                  onChange={handleChange("bestBefore")}
+                  className="mt-1 w-full rounded-md border border-slate-300 px-3 py-2 text-sm"
+                />
+              </label>
 
-            <label className="text-sm font-medium text-slate-700 md:mt-1">
-              SKU
-              <input
-                value={form.sku}
-                onChange={handleChange("sku")}
-                className="mt-1 w-full rounded-md border border-slate-300 px-3 py-2 text-sm"
-                placeholder="Optional"
-              />
-            </label>
+              <label className="text-sm font-medium text-slate-700">
+                SKU
+                <input
+                  value={form.sku}
+                  onChange={handleChange("sku")}
+                  className="mt-1 w-full rounded-md border border-slate-300 px-3 py-2 text-sm"
+                  placeholder="Optional"
+                />
+              </label>
+            </div>
 
-            <label className="text-sm font-medium text-slate-700 md:col-span-2 md:mt-1">
+            <label className="text-sm font-medium text-slate-700 md:col-span-2">
               Note
               <textarea
                 rows="2"

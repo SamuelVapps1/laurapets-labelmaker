@@ -16,7 +16,7 @@
 }
 
 .label-frame {
-  border: 1px solid #e2e8f0;
+  border: 1px solid #cbd5e1;
   border-radius: 8px;
   background: white;
 }
@@ -98,11 +98,11 @@
     align-items: stretch;
     justify-content: stretch;
     page-break-after: always;
+    break-after: page;
     overflow: hidden;
   }
 
   .label-print {
-    page-break-after: always;
     box-shadow: none !important;
   }
 }
