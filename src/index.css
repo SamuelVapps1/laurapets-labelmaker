@@ -16,7 +16,7 @@
 }
 
 .label-frame {
-  border: 1px solid #e2e8f0;
+  border: 1px solid #d1d5db;
   border-radius: 8px;
   background: white;
   box-sizing: border-box;
@@ -121,15 +121,16 @@
   .label-print {
     width: 80mm;
     height: 30mm;
-    padding: 1.6mm;
+    padding: 1.4mm;
     box-shadow: none !important;
     overflow: hidden;
     box-sizing: border-box;
   }
 
   .label-frame {
-    border: 0.3mm solid #cbd5e1;
+    border: 0.35mm solid #94a3b8;
     border-radius: 0;
+    box-sizing: border-box;
     box-shadow: none !important;
   }
 
