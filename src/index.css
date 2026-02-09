@@ -86,8 +86,6 @@
   body {
     margin: 0;
     padding: 0;
-    width: 80mm;
-    height: 30mm;
   }
 
   * {
@@ -102,17 +100,10 @@
   .print-page {
     width: 80mm;
     height: 30mm;
-    display: block;
     margin: 0;
     padding: 0;
     overflow: hidden;
-  }
-
-  .print-page,
-  .label-print,
-  .label-frame,
-  .label-grid,
-  .label-meta {
+    display: block;
     break-inside: avoid;
     page-break-inside: avoid;
   }
@@ -137,9 +128,16 @@
   }
 
   .label-frame {
-    border: 0.2mm solid #cbd5e1;
+    border: 0.3mm solid #cbd5e1;
     border-radius: 0;
     box-shadow: none !important;
+  }
+
+  .label-grid,
+  .label-frame,
+  .label-meta {
+    break-inside: avoid;
+    page-break-inside: avoid;
   }
 
   .label-grid {
@@ -150,7 +148,7 @@
   }
 
   .label-title {
-    font-size: 12.5px;
+    font-size: 12px;
   }
 
   .label-price {
