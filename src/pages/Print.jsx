@@ -99,7 +99,7 @@ export default function PrintView() {
         </div>
       </div>
 
-      <div className="grid gap-4">
+      <div>
         {pages.map((page) => (
           <div key={page} className="print-page flex justify-center">
             <LabelPreview

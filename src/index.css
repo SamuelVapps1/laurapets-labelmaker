@@ -16,7 +16,7 @@
 }
 
 .label-frame {
-  border: 1px solid #cbd5e1;
+  border: 1px solid #e2e8f0;
   border-radius: 8px;
   background: white;
   box-sizing: border-box;
@@ -108,6 +108,15 @@
     overflow: hidden;
   }
 
+  .print-page,
+  .label-print,
+  .label-frame,
+  .label-grid,
+  .label-meta {
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+
   .print-page:not(:last-child) {
     break-after: page;
     page-break-after: always;
@@ -119,28 +128,41 @@
   }
 
   .label-print {
-    padding: 1.8mm;
+    width: 80mm;
+    height: 30mm;
+    padding: 1.6mm;
     box-shadow: none !important;
     overflow: hidden;
+    box-sizing: border-box;
   }
 
   .label-frame {
-    border: 0.25mm solid #94a3b8;
-    border-radius: 6px;
+    border: 0.2mm solid #cbd5e1;
+    border-radius: 0;
+    box-shadow: none !important;
+  }
+
+  .label-grid {
+    display: flex !important;
+    flex-direction: column !important;
+    height: 100% !important;
+    gap: 1mm !important;
   }
 
   .label-title {
-    font-size: 13px;
+    font-size: 12.5px;
   }
 
   .label-price {
-    font-size: 16px;
+    font-size: 15px;
   }
 
   .label-meta {
     font-size: 9px;
+    margin-top: auto !important;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    line-height: 1.1;
   }
 }
