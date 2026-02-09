@@ -1,8 +1,7 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
 import LabelPreview from "../components/LabelPreview.jsx";
 import { createLabel, db, getLabel, updateLabel } from "../db.js";
-import { getUnitPrice, getUnitPriceLabel } from "../utils/label.js";
 
 const defaultForm = {
   brand: "",
@@ -11,6 +10,9 @@ const defaultForm = {
   price: "",
   weightValue: "",
   weightUnit: "kg",
+  showUnitPrice: false,
+  unitPriceManual: "",
+  unitPriceUnit: "€/kg",
   bestBefore: "",
   sku: "",
   note: "",
@@ -33,11 +35,6 @@ export default function NewLabel() {
   const [status, setStatus] = useState("");
   const [error, setError] = useState("");
 
-  const unitPrice = useMemo(
-    () => getUnitPrice(form.price, form.weightValue, form.weightUnit),
-    [form.price, form.weightValue, form.weightUnit]
-  );
-
   const loadBrands = async () => {
     const list = await db.labels.toArray();
     const unique = Array.from(
@@ -57,6 +54,9 @@ export default function NewLabel() {
       price: label.price ?? "",
       weightValue: label.weightValue ?? "",
       weightUnit: label.weightUnit || "kg",
+      showUnitPrice: label.showUnitPrice ?? false,
+      unitPriceManual: label.unitPriceManual ?? "",
+      unitPriceUnit: label.unitPriceUnit || "€/kg",
       bestBefore: label.bestBefore || "",
       sku: label.sku || "",
       note: label.note || "",
@@ -82,6 +82,9 @@ export default function NewLabel() {
         price: label.price ?? "",
         weightValue: label.weightValue ?? "",
         weightUnit: label.weightUnit || "kg",
+        showUnitPrice: label.showUnitPrice ?? false,
+        unitPriceManual: label.unitPriceManual ?? "",
+        unitPriceUnit: label.unitPriceUnit || "€/kg",
         bestBefore: label.bestBefore || "",
         sku: label.sku || "",
         note: label.note || "",
@@ -126,7 +129,10 @@ export default function NewLabel() {
     price: parseNumber(form.price),
     weightValue: parseNumber(form.weightValue),
     weightUnit: form.weightUnit,
-    unitPrice,
+    showUnitPrice: Boolean(form.showUnitPrice),
+    unitPriceManual:
+      form.unitPriceManual === "" ? "" : parseNumber(form.unitPriceManual),
+    unitPriceUnit: form.unitPriceUnit,
     bestBefore: form.bestBefore,
     sku: form.sku.trim(),
     note: form.note.trim(),
@@ -179,7 +185,6 @@ export default function NewLabel() {
 
   const labelPreview = {
     ...form,
-    unitPrice,
   };
 
   return (
@@ -188,10 +193,6 @@ export default function NewLabel() {
         <div className="rounded-xl border border-slate-200 bg-white p-4 shadow-sm">
           <div className="flex items-center justify-between">
             <h1 className="text-lg font-semibold">New Label</h1>
-            <div className="text-xs text-slate-500">
-              Unit price: {unitPrice.toFixed(2)}{" "}
-              {getUnitPriceLabel(form.weightUnit)}
-            </div>
           </div>
 
           <div className="mt-4 grid gap-4 md:grid-cols-2">
@@ -288,6 +289,50 @@ export default function NewLabel() {
               </label>
             </div>
 
+            <div className="rounded-lg border border-slate-200 bg-slate-50 p-3 md:col-span-2">
+              <label className="flex items-center gap-2 text-sm font-medium text-slate-700">
+                <input
+                  type="checkbox"
+                  checked={form.showUnitPrice}
+                  onChange={(event) =>
+                    setForm((prev) => ({
+                      ...prev,
+                      showUnitPrice: event.target.checked,
+                    }))
+                  }
+                  className="h-4 w-4 rounded border-slate-300 text-slate-900"
+                />
+                Show unit price
+              </label>
+              {form.showUnitPrice ? (
+                <div className="mt-3 grid gap-3 sm:grid-cols-[1.4fr_0.6fr]">
+                  <label className="text-sm font-medium text-slate-700">
+                    Unit price
+                    <input
+                      type="number"
+                      min="0"
+                      step="0.01"
+                      value={form.unitPriceManual}
+                      onChange={handleChange("unitPriceManual")}
+                      className="mt-1 w-full rounded-md border border-slate-300 px-3 py-2 text-sm"
+                      placeholder="0.00"
+                    />
+                  </label>
+                  <label className="text-sm font-medium text-slate-700">
+                    Unit
+                    <select
+                      value={form.unitPriceUnit}
+                      onChange={handleChange("unitPriceUnit")}
+                      className="mt-1 w-full rounded-md border border-slate-300 px-3 py-2 text-sm"
+                    >
+                      <option value="€/kg">€/kg</option>
+                      <option value="€/l">€/l</option>
+                    </select>
+                  </label>
+                </div>
+              ) : null}
+            </div>
+
             <label className="text-sm font-medium text-slate-700">
               Best before
               <input
@@ -381,7 +426,7 @@ export default function NewLabel() {
           </div>
         </div>
         <div className="rounded-xl border border-slate-200 bg-white p-4 text-sm text-slate-600 shadow-sm">
-          Tip: Use the Print button to open the 80mm x 40mm print view.
+          Tip: Use the Print button to open the 80mm x 30mm print view.
         </div>
       </aside>
     </div>

@@ -29,13 +29,15 @@ First load must be online so assets can be cached.
 
 You should still see the UI and navigate `/new`, `/library`, and `/print`.
 
-## Printing (80mm x 40mm)
+## Printing (80mm x 30mm)
 
 1. Open the label you want to print.
 2. Click **Print** to open the print view.
 3. In the browser print dialog:
-   - Paper size: **80mm x 40mm**
+   - Paper size: **80mm x 30mm**
    - Margins: **0**
    - Scale: **100%**
 
-Tip: the `/print` route is designed to render one label per page at 80mm x 40mm.
+Tip: the `/print` route is designed to render one label per page at 80mm x 30mm.
+
+Unit price is optional and manually entered when enabled.

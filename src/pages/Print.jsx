@@ -2,8 +2,6 @@ import { useEffect, useMemo, useState } from "react";
 import { Link, useLocation, useSearchParams } from "react-router-dom";
 import LabelPreview from "../components/LabelPreview.jsx";
 import { getLabel } from "../db.js";
-import { getUnitPrice } from "../utils/label.js";
-
 export default function PrintView() {
   const location = useLocation();
   const [searchParams] = useSearchParams();
@@ -21,13 +19,30 @@ export default function PrintView() {
     if (!label && id) {
       getLabel(Number(id)).then((data) => {
         if (!data) return;
-        const computedUnitPrice =
-          data.unitPrice ??
-          getUnitPrice(data.price, data.weightValue, data.weightUnit);
-        setLabel({ ...data, unitPrice: computedUnitPrice });
+        setLabel({
+          ...data,
+          showUnitPrice: data.showUnitPrice ?? false,
+          unitPriceManual: data.unitPriceManual ?? "",
+          unitPriceUnit: data.unitPriceUnit || "€/kg",
+        });
       });
     }
   }, [label, searchParams]);
+
+  useEffect(() => {
+    if (!label) return;
+    const needsDefaults =
+      label.showUnitPrice === undefined ||
+      label.unitPriceManual === undefined ||
+      !label.unitPriceUnit;
+    if (!needsDefaults) return;
+    setLabel({
+      ...label,
+      showUnitPrice: label.showUnitPrice ?? false,
+      unitPriceManual: label.unitPriceManual ?? "",
+      unitPriceUnit: label.unitPriceUnit || "€/kg",
+    });
+  }, [label]);
 
   useEffect(() => {
     if (!label) return;
@@ -58,7 +73,7 @@ export default function PrintView() {
         <div>
           <div className="text-lg font-semibold">Print Preview</div>
           <div className="text-xs text-slate-500">
-            {quantity} label{quantity > 1 ? "s" : ""} • 80mm x 40mm
+            {quantity} label{quantity > 1 ? "s" : ""} • 80mm x 30mm
           </div>
         </div>
         <div className="flex gap-2">
@@ -83,7 +98,7 @@ export default function PrintView() {
           <div key={page} className="flex justify-center">
             <LabelPreview
               label={label}
-              className="label-print border border-slate-200 bg-white shadow-sm"
+              className="label-print shadow-sm"
             />
           </div>
         ))}

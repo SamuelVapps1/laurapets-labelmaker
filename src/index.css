@@ -9,53 +9,73 @@
 }
 
 .label-preview {
-  aspect-ratio: 2 / 1;
+  aspect-ratio: 8 / 3;
   width: 100%;
   max-width: 360px;
-  border: 1px solid #e2e8f0;
-  border-radius: 12px;
+  padding: 10px;
+}
+
+.label-frame {
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
   background: white;
-  padding: 12px;
 }
 
 .label-print {
   width: 80mm;
-  height: 40mm;
-  padding: 3mm;
+  height: 30mm;
+  padding: 2.5mm;
 }
 
 .label-grid {
   display: grid;
   grid-template-rows: auto auto 1fr auto;
   height: 100%;
-  gap: 2mm;
+  gap: 1.2mm;
 }
 
 .label-title {
-  font-size: 16px;
+  font-size: 15px;
   font-weight: 700;
   line-height: 1.1;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
 }
 
 .label-subtitle {
-  font-size: 12px;
+  font-size: 11px;
   color: #475569;
   line-height: 1.2;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+  overflow: hidden;
 }
 
 .label-price {
-  font-size: 20px;
-  font-weight: 800;
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.label-unit {
+  font-size: 11px;
+  color: #475569;
 }
 
 .label-meta {
   font-size: 10px;
   color: #334155;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
 }
 
 @media print {
   @page {
-    size: 80mm 40mm;
+    size: 80mm 30mm;
     margin: 0;
   }
 
@@ -70,6 +90,5 @@
   .label-print {
     page-break-after: always;
     box-shadow: none !important;
-    border: none !important;
   }
 }
