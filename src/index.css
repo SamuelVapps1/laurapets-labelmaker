@@ -19,6 +19,7 @@
   border: 1px solid #cbd5e1;
   border-radius: 8px;
   background: white;
+  box-sizing: border-box;
 }
 
 .label-print {
@@ -85,6 +86,13 @@
   body {
     margin: 0;
     padding: 0;
+    width: 80mm;
+    height: 30mm;
+  }
+
+  * {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
   }
 
   .no-print {
@@ -94,15 +102,45 @@
   .print-page {
     width: 80mm;
     height: 30mm;
-    display: flex;
-    align-items: stretch;
-    justify-content: stretch;
-    page-break-after: always;
-    break-after: page;
+    display: block;
+    margin: 0;
+    padding: 0;
     overflow: hidden;
   }
 
+  .print-page:not(:last-child) {
+    break-after: page;
+    page-break-after: always;
+  }
+
+  .print-page:last-child {
+    break-after: auto;
+    page-break-after: auto;
+  }
+
   .label-print {
+    padding: 1.8mm;
     box-shadow: none !important;
+    overflow: hidden;
+  }
+
+  .label-frame {
+    border: 0.25mm solid #94a3b8;
+    border-radius: 6px;
+  }
+
+  .label-title {
+    font-size: 13px;
+  }
+
+  .label-price {
+    font-size: 16px;
+  }
+
+  .label-meta {
+    font-size: 9px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 }
