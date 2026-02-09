@@ -18,6 +18,17 @@ npm run build
 npm run preview
 ```
 
+## PWA Offline Test
+
+First load must be online so assets can be cached.
+
+1. Run `npm run preview`.
+2. Open the app once while online.
+3. Open Chrome DevTools → Application → Service Workers to confirm the worker is active.
+4. Open DevTools → Network → check **Offline** and refresh.
+
+You should still see the UI and navigate `/new`, `/library`, and `/print`.
+
 ## Printing (80mm x 40mm)
 
 1. Open the label you want to print.
