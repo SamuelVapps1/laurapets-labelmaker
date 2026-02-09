@@ -2,6 +2,8 @@
 
 Offline-first shelf label maker built with Vite + React + TailwindCSS + Dexie.
 
+Note: Do not commit `node_modules` or `dist`.
+
 ## Setup
 
 ```bash
@@ -13,6 +15,7 @@ npm run dev
 
 ```bash
 npm run build
+npm run preview
 ```
 
 ## Printing (80mm x 40mm)
