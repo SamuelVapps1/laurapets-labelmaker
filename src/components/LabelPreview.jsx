@@ -20,6 +20,11 @@ export default function LabelPreview({ label, className = "" }) {
   const showUnit =
     Boolean(showUnitPrice) && unitPriceManual !== "" && unitPriceManual != null;
   const unitLabel = unitPriceUnit || "€/kg";
+  const metaItems = [
+    bestBefore ? `Best before: ${bestBefore}` : null,
+    sku ? `SKU: ${sku}` : null,
+    note ? note : null,
+  ].filter(Boolean);
 
   return (
     <div className={`${className} label-frame`}>
@@ -42,10 +47,15 @@ export default function LabelPreview({ label, className = "" }) {
             </div>
           ) : null}
         </div>
-        <div className="label-meta flex flex-wrap gap-x-3 gap-y-1">
-          {bestBefore ? <span>Best before: {bestBefore}</span> : null}
-          {sku ? <span>SKU: {sku}</span> : null}
-          {note ? <span>{note}</span> : null}
+        <div className="label-meta flex flex-wrap items-center gap-x-1.5 gap-y-1">
+          {metaItems.length
+            ? metaItems.map((item, index) => (
+                <span key={`${item}-${index}`}>
+                  {item}
+                  {index < metaItems.length - 1 ? " • " : ""}
+                </span>
+              ))
+            : null}
         </div>
       </div>
     </div>

@@ -195,7 +195,7 @@ export default function NewLabel() {
             <h1 className="text-lg font-semibold">New Label</h1>
           </div>
 
-          <div className="mt-4 grid gap-4 md:grid-cols-2">
+          <div className="mt-4 grid gap-5 md:grid-cols-2">
             <label className="text-sm font-medium text-slate-700">
               Brand
               <select
@@ -333,7 +333,7 @@ export default function NewLabel() {
               ) : null}
             </div>
 
-            <label className="text-sm font-medium text-slate-700">
+            <label className="text-sm font-medium text-slate-700 md:mt-1">
               Best before
               <input
                 type="date"
@@ -343,7 +343,7 @@ export default function NewLabel() {
               />
             </label>
 
-            <label className="text-sm font-medium text-slate-700">
+            <label className="text-sm font-medium text-slate-700 md:mt-1">
               SKU
               <input
                 value={form.sku}
@@ -353,7 +353,7 @@ export default function NewLabel() {
               />
             </label>
 
-            <label className="text-sm font-medium text-slate-700 md:col-span-2">
+            <label className="text-sm font-medium text-slate-700 md:col-span-2 md:mt-1">
               Note
               <textarea
                 rows="2"

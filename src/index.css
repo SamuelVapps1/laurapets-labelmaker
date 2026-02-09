@@ -16,7 +16,7 @@
 }
 
 .label-frame {
-  border: 1px solid #e5e7eb;
+  border: 1px solid #e2e8f0;
   border-radius: 8px;
   background: white;
 }
@@ -24,7 +24,9 @@
 .label-print {
   width: 80mm;
   height: 30mm;
-  padding: 2.5mm;
+  padding: 2.2mm;
+  overflow: hidden;
+  box-sizing: border-box;
 }
 
 .label-grid {
@@ -79,12 +81,24 @@
     margin: 0;
   }
 
+  html,
   body {
     margin: 0;
+    padding: 0;
   }
 
   .no-print {
     display: none !important;
+  }
+
+  .print-page {
+    width: 80mm;
+    height: 30mm;
+    display: flex;
+    align-items: stretch;
+    justify-content: stretch;
+    page-break-after: always;
+    overflow: hidden;
   }
 
   .label-print {

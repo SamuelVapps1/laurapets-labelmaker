@@ -69,7 +69,8 @@ export default function PrintView() {
 
   return (
     <div className="space-y-4">
-      <div className="no-print flex items-center justify-between">
+      <div className="no-print space-y-3">
+        <div className="flex items-center justify-between">
         <div>
           <div className="text-lg font-semibold">Print Preview</div>
           <div className="text-xs text-slate-500">
@@ -91,11 +92,16 @@ export default function PrintView() {
             Back
           </Link>
         </div>
+        </div>
+        <div className="rounded-md border border-amber-200 bg-amber-50 px-3 py-2 text-xs text-amber-700">
+          Tip: disable &quot;Headers and footers&quot; in the print dialog for
+          best results.
+        </div>
       </div>
 
       <div className="grid gap-4">
         {pages.map((page) => (
-          <div key={page} className="flex justify-center">
+          <div key={page} className="print-page flex justify-center">
             <LabelPreview
               label={label}
               className="label-print shadow-sm"
