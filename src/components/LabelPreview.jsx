@@ -36,7 +36,7 @@ export default function LabelPreview({ label, className = "" }) {
           </div>
           {variant ? <div className="label-subtitle">{variant}</div> : null}
         </div>
-        <div className="label-subtitle">
+        <div className="label-weight">
           {weightValue ? `${weightValue} ${weightUnit}` : "Weight/Volume"}
         </div>
         <div className="flex items-end justify-between gap-3">
