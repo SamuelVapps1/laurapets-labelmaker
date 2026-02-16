@@ -109,14 +109,18 @@
   }
 
   .print-page {
+    --safe-inset: 1.5mm;
     width: 80mm;
     height: 30mm;
     margin: 0;
-    padding: 0;
+    padding: var(--safe-inset);
     overflow: hidden;
-    display: block;
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
     break-inside: avoid;
     page-break-inside: avoid;
+    box-sizing: border-box;
   }
 
   .print-page:not(:last-child) {
@@ -130,8 +134,8 @@
   }
 
   .label-print {
-    width: 80mm;
-    height: 30mm;
+    width: calc(80mm - 2 * var(--safe-inset, 1.5mm));
+    height: calc(30mm - 2 * var(--safe-inset, 1.5mm));
     padding: 1.7mm;
     box-shadow: none !important;
     overflow: hidden;
